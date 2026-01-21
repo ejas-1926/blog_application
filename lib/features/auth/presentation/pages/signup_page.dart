@@ -1,3 +1,4 @@
+import 'package:blog_application/features/auth/presentation/widgets/authtextfield.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {
@@ -10,6 +11,24 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(child: Column(mainAxisAlignment: MainAxisAlignment.center,children:[Text("Sign Up",style: TextStyle(fontSize: 50)),Form(child: Column(children:[TextField()]))])),);
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Sign Up", style: TextStyle(fontSize: 50)),
+            Form(
+              child: Column(
+                children: [
+                  Authtextfield(hinttext: "Name"),
+                  Authtextfield(hinttext: "email"),
+                  Authtextfield(hinttext: "password"),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -1,15 +1,21 @@
-import 'package:blog_application/core/constants/dbconstants.dart';
 import 'package:blog_application/core/themes/app_theme.dart';
+import 'package:blog_application/features/auth/presentation/bloc/bloc/auth_bloc.dart';
 import 'package:blog_application/features/auth/presentation/pages/signup_page.dart';
+import 'package:blog_application/initdependencies.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-void  main() async
-{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-await Supabase.initialize(url: Dbconstants.url ,anonKey: Dbconstants.anonKey);
-runApp(Blogapplication());
+  await initdependencies();
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => serviceLocator<AuthBloc>()),
+      ],
+      child: Blogapplication(),
+    ),
+  );
 }
 
 class Blogapplication extends StatelessWidget {
@@ -17,6 +23,6 @@ class Blogapplication extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(theme:AppTheme.darkThemeMode,home: SignupPage(),);
+    return MaterialApp(theme: AppTheme.darkThemeMode, home: SignupPage());
   }
 }
