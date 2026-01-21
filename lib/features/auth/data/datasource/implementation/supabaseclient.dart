@@ -8,8 +8,25 @@ class SupabaseDataSource implements IAuthDataSource {
   SupabaseDataSource(SupabaseClient sb) : _supabaseClient = sb;
 
   @override
-  Future<Userdbmodel> signin(String email, String password) {
-    throw UnimplementedError();
+  Future<Userdbmodel> signin(String email, String password) async {
+    try {
+      final reponse = await _supabaseClient.auth.signInWithPassword(
+        password: password,
+        email: email,
+      );
+      if (reponse.user == null) {
+        throw Exception();
+      }
+
+      var user = Userdbmodel(
+        reponse.user!.email ?? " ",
+        reponse.user!.id,
+        reponse.user!.id,
+      );
+      return user;
+    } catch (e) {
+      throw Exception();
+    }
   }
 
   @override

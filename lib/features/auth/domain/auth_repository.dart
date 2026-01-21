@@ -1,14 +1,20 @@
 import 'package:blog_application/core/error/failure.dart';
+import 'package:blog_application/features/auth/domain/models/user_model.dart';
 import 'package:fpdart/fpdart.dart';
+
 ///this will we the repository that is used for sign in up and sign up operations
 ///when any component in the domain layer requires sign in or sign up it should contact the IAuthRepository interface
 
-abstract interface class IAuthRepository{
-
-  Future<Either<Failure,String>> signup({required String name,required String email,required String password});
-  Future<Either<Failure,String>> signin({required String email,required String password});
-
-
+abstract interface class IAuthRepository {
+  Future<Either<Failure, String>> signup({
+    required String name,
+    required String email,
+    required String password,
+  });
+  Future<Either<Failure, UserModel>> signin({
+    required String email,
+    required String password,
+  });
 }
 
 //abstract interface 

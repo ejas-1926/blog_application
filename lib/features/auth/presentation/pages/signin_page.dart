@@ -17,13 +17,11 @@ class _SignupPageState extends State<SignupPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Sign Up", style: TextStyle(fontSize: 50)),
+            Text("Sign Ins", style: TextStyle(fontSize: 50)),
             Form(
               child: Column(
                 children: [
                   Authtextfield(hinttext: "Name"),
-                  SizedBox(height: 10),
-                  Authtextfield(hinttext: "email"),
                   SizedBox(height: 10),
                   Authtextfield(hinttext: "password"),
                   SizedBox(height: 10),
