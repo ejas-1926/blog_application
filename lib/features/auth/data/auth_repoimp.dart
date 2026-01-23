@@ -1,37 +1,34 @@
 import 'package:blog_application/core/error/failure.dart';
 import 'package:blog_application/features/auth/data/datasource/auth_datasource.dart';
 import 'package:blog_application/features/auth/domain/auth_repository.dart';
+import 'package:blog_application/features/auth/domain/models/user_model.dart';
 import 'package:fpdart/fpdart.dart';
 
 class AuthRepoimp implements IAuthRepository {
-
- IAuthDataSource authDataSource;
-
+  IAuthDataSource authDataSource;
 
   //constructor
   AuthRepoimp(this.authDataSource);
 
- 
-  
-
   @override
-  Future<Either<Failure, String>> signup ({required String name, required String email, required String password}) async {
-try
-{
-final userid = await authDataSource.signup(name, email, password);
-return right(userid);
-}
-
-catch(e)
-{
-   return left(Failure(e.toString()));
-}
-   
+  Future<Either<Failure, String>> signup({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final userid = await authDataSource.signup(name, email, password);
+      return right(userid);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
   }
-  
+
   @override
-  Future<Either<Failure, String>> signin({required String email, required String password}) {
-    
+  Future<Either<Failure, UserModel>> signin({
+    required String email,
+    required String password,
+  }) {
     throw UnimplementedError();
   }
 }

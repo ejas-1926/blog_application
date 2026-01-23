@@ -10,6 +10,10 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController paswordcontroller = TextEditingController();
+  TextEditingController emailcontroller = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,13 +23,17 @@ class _SignupPageState extends State<SignupPage> {
           children: [
             Text("Sign Up", style: TextStyle(fontSize: 50)),
             Form(
+              key: _formkey,
               child: Column(
                 children: [
-                  Authtextfield(hinttext: "Name"),
+                  Authtextfield(hinttext: "Name", contoller: namecontroller),
                   SizedBox(height: 10),
-                  Authtextfield(hinttext: "email"),
+                  Authtextfield(hinttext: "email", contoller: emailcontroller),
                   SizedBox(height: 10),
-                  Authtextfield(hinttext: "password"),
+                  Authtextfield(
+                    hinttext: "password",
+                    contoller: paswordcontroller,
+                  ),
                   SizedBox(height: 10),
                   Submitbutton(buttontext: "Sign Up", onPressed: () {}),
                 ],
