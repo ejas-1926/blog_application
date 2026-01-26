@@ -11,14 +11,14 @@ class AuthRepoimp implements IAuthRepository {
   AuthRepoimp(this.authDataSource);
 
   @override
-  Future<Either<Failure, String>> signup({
+  Future<Either<Failure, UserModel>> signup({
     required String name,
     required String email,
     required String password,
   }) async {
     try {
-      final userid = await authDataSource.signup(name, email, password);
-      return right(userid);
+      UserModel user = await authDataSource.signup(name, email, password);
+      return right(user);
     } catch (e) {
       return left(Failure(e.toString()));
     }
@@ -28,8 +28,13 @@ class AuthRepoimp implements IAuthRepository {
   Future<Either<Failure, UserModel>> signin({
     required String email,
     required String password,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    try {
+      UserModel user = await authDataSource.signin(email, password);
+      return right(user);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
   }
 }
 

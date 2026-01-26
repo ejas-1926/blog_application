@@ -6,7 +6,7 @@ import 'package:fpdart/fpdart.dart';
 ///when any component in the domain layer requires sign in or sign up it should contact the IAuthRepository interface
 
 abstract interface class IAuthRepository {
-  Future<Either<Failure, String>> signup({
+  Future<Either<Failure, UserModel>> signup({
     required String name,
     required String email,
     required String password,

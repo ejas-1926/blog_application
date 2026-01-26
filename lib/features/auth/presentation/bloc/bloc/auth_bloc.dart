@@ -1,3 +1,5 @@
+import 'package:blog_application/features/auth/domain/models/user_model.dart';
+import 'package:blog_application/features/auth/domain/usecases/signinusecase.dart';
 import 'package:blog_application/features/auth/domain/usecases/signupusecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,25 +8,41 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  
   final Signupusecase _signupusecase;
-  
-  
-  AuthBloc({required Signupusecase signupusecase}) : _signupusecase = signupusecase,super(AuthInitial()) {
 
-  
-    on<AuthSignUpEvent>((event, emit) async{
-      
-     final respose = await _signupusecase(UserSignUpParameter(email: event.email, name: event.name, password: event.password));
-              
-     respose.fold((l)=>emit(AuthFailure(l.errormessage)), (r)=>emit(AuthSuccess(r)));
-     
-     
+  AuthBloc({required Signupusecase signupusecase})
+    : _signupusecase = signupusecase,
+      super(AuthInitial()) {
+    on<AuthSignUpEvent>((event, emit) async {
+      emit(
+        AuthLoading(),
+      ); //this will emit the auth loading state to all the listeners
+      final respose = await _signupusecase(
+        UserSignUpParameter(
+          email: event.email,
+          name: event.name,
+          password: event.password,
+        ),
+      );
+
+      respose.fold(
+        (l) => emit(AuthFailure(l.errormessage)),
+        (r) => emit(AuthSuccess(r)),
+      );
+
+      //  on<AuthSigninEvent>((event, emit) async {
+      //   emit(AuthLoading());
+      //   final respose = await _signin(
+      //     UserSignUpParameter(
+      //       email: event.email,
+      //       name: event.name,
+      //       password: event.password,
+      //     ),
+      //   );
+
       //this call funtion has a special meaning in dart
-       
-      //even if consturctor is different for outside classes we whenever this is put automatically this class will be called
 
-      
+      //even if consturctor is different for outside classes we whenever this is put automatically this class will be called
     });
   }
 }

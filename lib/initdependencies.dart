@@ -30,17 +30,19 @@ void initauth() {
   //every time no need of creating the auth instance
   //state will get lost otherwise
   //because this will go back to initial state everytime to avoid this we will just add as singelton to retain the state
-  serviceLocator.registerSingleton(
-    () => AuthBloc(signupusecase: serviceLocator()),
+  serviceLocator.registerSingleton<AuthBloc>(
+    AuthBloc(signupusecase: serviceLocator()),
   );
 }
+
+//for singelton alwa
 
 Future<void> registerdb() async {
   final supabase = await Supabase.initialize(
     url: Dbconstants.url,
     anonKey: Dbconstants.anonKey,
   );
-  //supabase must be singelton becuase
+  //supabase must be singelton becuase sometimes registration wont happen and results in crashing of the application.
 
   //this means whenever we want an instance,this will provide new instance
   serviceLocator.registerLazySingleton(() {

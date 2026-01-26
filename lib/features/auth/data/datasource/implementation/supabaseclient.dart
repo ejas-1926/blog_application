@@ -10,27 +10,25 @@ class SupabaseDataSource implements IAuthDataSource {
   @override
   Future<Userdbmodel> signin(String email, String password) async {
     try {
-      final reponse = await _supabaseClient.auth.signInWithPassword(
+      final response = await _supabaseClient.auth.signInWithPassword(
         password: password,
         email: email,
       );
-      if (reponse.user == null) {
+
+      if (response.user == null) {
         throw Exception();
       }
 
-      var user = Userdbmodel(
-        reponse.user!.email ?? " ",
-        reponse.user!.id,
-        reponse.user!.id,
-      );
-      return user;
+      Map<String, dynamic> mappings = response.user!.toJson();
+
+      return Userdbmodel.fromjson(mappings);
     } catch (e) {
       throw Exception();
     }
   }
 
   @override
-  Future<String> signup(String name, String email, String password) async {
+  Future<Userdbmodel> signup(String name, String email, String password) async {
     try {
       final response = await _supabaseClient.auth.signUp(
         password: password,
@@ -40,9 +38,15 @@ class SupabaseDataSource implements IAuthDataSource {
       if (response.user == null) {
         throw Exception();
       }
-      return response.user!.id;
+
+      Map<String, dynamic> mappings = response.user!.toJson();
+
+      return Userdbmodel.fromjson(mappings);
     } catch (e) {
       throw Exception();
     }
   }
 }
+
+//we are throwing the exception twice ie in the catch block as well
+//so that this value will be thrown again at the higher level above this
