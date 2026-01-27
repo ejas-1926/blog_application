@@ -6,7 +6,7 @@ import 'package:fpdart/fpdart.dart';
 
 class Signinusecase implements Usecase<UserModel, UserSignInparams> {
   final IAuthRepository _repository;
-  Signinusecase(IAuthRepository repository) : _repository = repository;
+  Signinusecase({required IAuthRepository repository}) : _repository = repository;
 
   @override
   Future<Either<Failure, UserModel>> call(UserSignInparams p) async {
