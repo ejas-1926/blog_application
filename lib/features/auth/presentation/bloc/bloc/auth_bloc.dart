@@ -8,11 +8,20 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  //private variables are written with _ in dart you can directly use this as in the constructor
+  //like generally we will write in the constructor as this._signinusecase,
+  // this is not possible in dart inside the constructor
+  //you can take in some other instance and then assign it later
   final Signupusecase _signupusecase;
+  final Signinusecase _signinusecase;
 
-  AuthBloc({required Signupusecase signupusecase})
-    : _signupusecase = signupusecase,
-      super(AuthInitial()) {
+  AuthBloc({
+    required Signupusecase signupusecase,
+    required Signinusecase signinusecase,
+  }) : _signupusecase = signupusecase,
+       _signinusecase = signinusecase,
+
+       super(AuthInitial()) {
     on<AuthSignUpEvent>((event, emit) async {
       emit(
         AuthLoading(),
@@ -30,15 +39,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         (r) => emit(AuthSuccess(r)),
       );
 
-      //  on<AuthSigninEvent>((event, emit) async {
-      //   emit(AuthLoading());
-      //   final respose = await _signin(
-      //     UserSignUpParameter(
-      //       email: event.email,
-      //       name: event.name,
-      //       password: event.password,
-      //     ),
-      //   );
+      on<AuthSigninEvent>((event, emit) async {
+        emit(AuthLoading());
+        //the call function has a special meaning in dart you can just call the class and pass it as the constructor look alike kind of call
+        //dart already knows the call method name and it will automatically call this function
+        final response = await _signinusecase(
+          UserSignInparams(email: event.email, password: event.password),
+        );
+        response.fold(
+          //l represents the failure object
+          (l) => emit(AuthFailure(l.errormessage)),
+          //r represents the success object
+          (r) => emit(AuthSuccess(r)),
+        );
+      });
+
+      ///Bloc has three parts
+      ///Bloc ,bloc events, bloc state;
+      ///events we are binding to elemets like button and all
+      ///whenever something happens based on various conditions such as events or some error we can give the state
+      ///state means auth state instances which represents the state/current value
+      ///whenever state changes,listeners,builders and consumers are there
+      ///which will listen to various events and perform accordingly
 
       //this call funtion has a special meaning in dart
 
