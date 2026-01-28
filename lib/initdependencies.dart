@@ -3,6 +3,7 @@ import 'package:blog_application/features/auth/data/auth_repoimp.dart';
 import 'package:blog_application/features/auth/data/datasource/auth_datasource.dart';
 import 'package:blog_application/features/auth/data/datasource/implementation/supabaseclient.dart';
 import 'package:blog_application/features/auth/domain/auth_repository.dart';
+import 'package:blog_application/features/auth/domain/usecases/getcurrentuserusecase.dart';
 import 'package:blog_application/features/auth/domain/usecases/signinusecase.dart';
 import 'package:blog_application/features/auth/domain/usecases/signupusecase.dart';
 import 'package:blog_application/features/auth/presentation/bloc/bloc/auth_bloc.dart';
@@ -27,8 +28,10 @@ void initauth() {
     ..registerFactory<IAuthRepository>(() => AuthRepoimp(serviceLocator()))
     ..registerFactory(() => Signupusecase(authRepository: serviceLocator()))
     ..registerFactory(() => Signinusecase(repository: serviceLocator()))
+    ..registerFactory(() => Getcurrentuserusecase(repository: serviceLocator()))
     ..registerSingleton<AuthBloc>(
       AuthBloc(
+        currentuser: serviceLocator(),
         signupusecase: serviceLocator(),
         signinusecase: serviceLocator(),
       ),

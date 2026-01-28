@@ -1,4 +1,5 @@
 import 'package:blog_application/features/auth/domain/models/user_model.dart';
+import 'package:blog_application/features/auth/domain/usecases/getcurrentuserusecase.dart';
 import 'package:blog_application/features/auth/domain/usecases/signinusecase.dart';
 import 'package:blog_application/features/auth/domain/usecases/signupusecase.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   //you can take in some other instance and then assign it later
   final Signupusecase _signupusecase;
   final Signinusecase _signinusecase;
+  final Getcurrentuserusecase _currentuser;
 
   AuthBloc({
     required Signupusecase signupusecase,
     required Signinusecase signinusecase,
+    required Getcurrentuserusecase currentuser,
   }) : _signupusecase = signupusecase,
        _signinusecase = signinusecase,
+       _currentuser = currentuser,
 
        super(AuthInitial()) {
     on<AuthSignUpEvent>((event, emit) async {
@@ -51,6 +55,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           (l) => emit(AuthFailure(l.errormessage)),
           //r represents the success object
           (r) => emit(AuthSuccess(r)),
+        );
+      });
+
+      on<isuserloggedin>((event, emit) async {
+        emit(AuthLoading());
+        var response = await _currentuser(Noparams());
+        response.fold(
+          (l) => AuthFailure(l.errormessage),
+          (r) => AuthSuccess(r),
         );
       });
 

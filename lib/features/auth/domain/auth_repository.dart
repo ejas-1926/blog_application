@@ -15,6 +15,8 @@ abstract interface class IAuthRepository {
     required String email,
     required String password,
   });
+
+  Future<Either<Failure, UserModel>> getcurrentuser();
 }
 
 //abstract interface 

@@ -36,6 +36,19 @@ class AuthRepoimp implements IAuthRepository {
       return left(Failure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, UserModel>> getcurrentuser() async {
+    try {
+      UserModel? usermodel = await authDataSource.getCurrentuser();
+      if (usermodel == null) {
+        return left(Failure("User not found"));
+      }
+      return right(usermodel);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
 }
 
 
