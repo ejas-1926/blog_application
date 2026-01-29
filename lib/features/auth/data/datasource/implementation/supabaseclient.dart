@@ -45,7 +45,7 @@ class SupabaseDataSource implements IAuthDataSource {
       Map<String, dynamic> mappings = response.user!.toJson();
 
       return Userdbmodel.fromjson(mappings);
-    } catch (e) {
+  } catch (e) {
       throw Exception();
     }
   }
@@ -57,7 +57,9 @@ class SupabaseDataSource implements IAuthDataSource {
           .from('profiles')
           .select()
           .eq('id', currentsession!.user.id);
-      return Userdbmodel.fromjson(userlist.first);
+      return Userdbmodel.fromjson(
+        userlist.first,
+      ).copywith(email: currentsession!.user.email);
     } catch (e) {
       throw Exception();
     }

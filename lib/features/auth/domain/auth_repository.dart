@@ -1,5 +1,5 @@
 import 'package:blog_application/core/error/failure.dart';
-import 'package:blog_application/features/auth/domain/models/user_model.dart';
+import 'package:blog_application/core/models/user_model.dart';
 import 'package:fpdart/fpdart.dart';
 
 ///this will we the repository that is used for sign in up and sign up operations

@@ -28,7 +28,9 @@ void initauth() {
     ..registerFactory<IAuthRepository>(() => AuthRepoimp(serviceLocator()))
     ..registerFactory(() => Signupusecase(authRepository: serviceLocator()))
     ..registerFactory(() => Signinusecase(repository: serviceLocator()))
-    ..registerFactory(() => Getcurrentuserusecase(repository: serviceLocator()))
+    ..registerFactory(
+      () => Getcurrentuserusecase(repository: serviceLocator()),
+    )
     ..registerSingleton<AuthBloc>(
       AuthBloc(
         currentuser: serviceLocator(),

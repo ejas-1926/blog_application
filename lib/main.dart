@@ -18,9 +18,14 @@ void main() async {
   );
 }
 
-class Blogapplication extends StatelessWidget {
+class Blogapplication extends StatefulWidget {
   const Blogapplication({super.key});
 
+  @override
+  State<Blogapplication> createState() => _BlogapplicationState();
+}
+
+class _BlogapplicationState extends State<Blogapplication> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(theme: AppTheme.darkThemeMode, home: SignupPage());

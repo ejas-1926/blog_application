@@ -1,4 +1,4 @@
-import 'package:blog_application/features/auth/domain/models/user_model.dart';
+import 'package:blog_application/core/models/user_model.dart';
 import 'package:blog_application/features/auth/domain/usecases/getcurrentuserusecase.dart';
 import 'package:blog_application/features/auth/domain/usecases/signinusecase.dart';
 import 'package:blog_application/features/auth/domain/usecases/signupusecase.dart';

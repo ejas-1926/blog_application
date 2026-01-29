@@ -1,7 +1,7 @@
 import 'package:blog_application/core/error/failure.dart';
 import 'package:blog_application/features/auth/data/datasource/auth_datasource.dart';
 import 'package:blog_application/features/auth/domain/auth_repository.dart';
-import 'package:blog_application/features/auth/domain/models/user_model.dart';
+import 'package:blog_application/core/models/user_model.dart';
 import 'package:fpdart/fpdart.dart';
 
 class AuthRepoimp implements IAuthRepository {
